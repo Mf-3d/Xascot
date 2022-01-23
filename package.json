@@ -1,0 +1,33 @@
+{
+  "name": "xascot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx electron .",
+    "build-mac": "npx electron-builder --mac --x64",
+    "build-win": "npx electron-builder --win --x64 --dir"
+  },
+  "keywords": [],
+  "author": "mf7cli <mf7cli120@icloud.com>",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "node-static": "^0.7.11"
+  },
+  "devDependencies": {
+    "electron": "^16.0.7",
+    "electron-builder": "^22.14.5"
+  },
+  "build": {
+    "appId": "ml.mf7cli.bluesky",
+    "productName": "BlueSky Mascot",
+    "files": [
+      "src",
+      "package.json",
+      "package-lock.json",
+      "main.js"
+    ]
+  }
+}

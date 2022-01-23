@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <style>
+            html {
+                -webkit-app-region: drag;
+            }
+            footer{
+                bottom: 0; /*下に固定*/
+                background-color: rgb(44, 44, 44);
+                border-radius: 10px;
+                text-align: center;
+                color: white;
+            }
+        </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/106/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/libs/mmdparser.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r103/examples/js/libs/ammo.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/loaders/TGALoader.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/loaders/MMDLoader.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDAnimationHelper.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/effects/OutlineEffect.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/CCDIKSolver.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDPhysics.js"></script>
+    </head>
+    <body>
+        <!-- MMDが描画されるHTML要素 -->
+        <div id="webgl" style="width: 100%;"></div> 
+        <footer>
+            Toolbar<br>
+            <button onclick="modelVisiblityOff();" id="visible_btn">MMDモデル非表示</button>
+        </footer>
+        <script src="./mmd.js"></script>
+        <script>
+            function modelVisiblityOff() {
+                if(document.getElementById("webgl").style.visibility !== "hidden"){
+                    document.getElementById("webgl").style.visibility = "hidden";
+                    document.getElementById("visible_btn").innerHTML = "MMDモデル表示"
+                }
+                else if(document.getElementById("webgl").style.visibility == "hidden"){
+                    document.getElementById("webgl").style.visibility = "visible";
+                    document.getElementById("visible_btn").innerHTML = "MMDモデル非表示"
+                }
+            }
+        </script>
+    </body>
+</html>
