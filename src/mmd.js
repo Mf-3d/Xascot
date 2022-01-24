@@ -146,9 +146,10 @@ function loadMMD () {
     const LOADER = new THREE.MMDLoader();
     // .pmd / .pmx ファイルの読込
     // .load ( url : String, onLoad : Function, onProgress : Function, onError : Function ) : null
-    LOADER.load (
+    LOADER.loadwithAnimation (
     // ロードする PMD/PMX ファイル
     './Bluesky/Bluesky_1.0.2.pmx',
+    './vmd/dance.vmd',
     // ロード成功時の処理
     function ( mmd ) {
         // MMD 3Dモデルのメッシュを作成

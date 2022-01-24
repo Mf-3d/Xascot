@@ -11,8 +11,8 @@ require('http').createServer(function (request, response) {
 
 function nw(){
   win=new electron.BrowserWindow({
-    width: 400,
-    height: 500,
+    width: 200,
+    height: 400,
     transparent: true,
     frame: false,
     toolbar: false,
