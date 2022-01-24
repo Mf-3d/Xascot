@@ -17,7 +17,7 @@ function nw(){
     frame: false,
     toolbar: false,
     alwaysOnTop: true,
-    icon: `${__dirname}/src/icon.png`,
+    icon: `${__dirname}/icon.png`,
     webPreferences: {
       preload: `${__dirname}/src/preload.js`
     }
