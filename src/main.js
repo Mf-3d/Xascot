@@ -226,14 +226,3 @@ PoseClickEvent = (id) => {
       break;
   }
 }
-
-function modelVisiblityOff() {
-    if(document.getElementById("webgl").style.visibility !== "hidden"){
-        document.getElementById("webgl").style.visibility = "hidden";
-        document.getElementById("visible_btn").innerHTML = "MMDモデル表示"
-    }
-    else if(document.getElementById("webgl").style.visibility == "hidden"){
-        document.getElementById("webgl").style.visibility = "visible";
-        document.getElementById("visible_btn").innerHTML = "MMDモデル非表示"
-    }
-}

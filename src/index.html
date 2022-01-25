@@ -16,10 +16,9 @@
                 text-align: center;
                 color: white;
             }
-        </style>  
+        </style>
     </head>
     <body>
-        
         <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/build/three.js"></script>
     
         <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/libs/mmdparser.min.js"></script>
@@ -37,13 +36,25 @@
             <button onclick="modelVisiblityOff();" id="visible_btn">MMDモデル非表示</button>
             <br>
             <input type="button" value="pose1" id="loop" onclick="PoseClickEvent(this.value)">
-            <input type="button" value="pose2" onclick="PoseClickEvent(this.value)">
-            <input type="button" value="pose3" onclick="PoseClickEvent(this.value)">
+            <input type="button" value="pose2" onclick="PoseClickEvent(this.value)" disabled>
+            <input type="button" value="pose3" onclick="PoseClickEvent(this.value)" disabled>
             <br>
             <input type="text" id="chattext" />
             <input type="button" id="speechbtn" value="送信" />
         </footer>
         <script src="./chat.js"></script>
         <script src="./js/main.js"></script>
+        <script>
+            function modelVisiblityOff() {
+                if(document.getElementById("three_canvas").style.visibility !== "hidden"){
+                    document.getElementById("three_canvas").style.visibility = "hidden";
+                    document.getElementById("visible_btn").innerHTML = "MMDモデル表示"
+                }
+                else if(document.getElementById("three_canvas").style.visibility == "hidden"){
+                    document.getElementById("three_canvas").style.visibility = "visible";
+                    document.getElementById("visible_btn").innerHTML = "MMDモデル非表示"
+                }
+            }
+        </script>
     </body>
 </html>
