@@ -13,6 +13,7 @@
   "author": "mf7cli <mf7cli120@icloud.com>",
   "license": "ISC",
   "dependencies": {
+    "electron-store": "^8.0.1",
     "express": "^4.17.2",
     "node-static": "^0.7.11"
   },

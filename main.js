@@ -1,5 +1,12 @@
 const { app } = require("electron");
 const electron = require("electron");
+const Store = require('electron-store');
+
+const store = new Store({
+  name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
+});
+
+var PORT = store.get('config.port') || 1210;
 
 var nodeStatic = require('node-static');
 var file = new nodeStatic.Server(__dirname + '/src');
@@ -12,7 +19,7 @@ require('http').createServer(function (request, response) {
     request.addListener('end', function () {
         file.serve(request, response);
     }).resume();
-}).listen(1210);//ポートは空いていそうなところで。
+}).listen(PORT);//ポートは空いていそうなところで。
 
 function nw(){
   win=new electron.BrowserWindow({
@@ -27,24 +34,12 @@ function nw(){
       preload: `${__dirname}/src/preload.js`
     }
   })
-  win.webContents.loadURL(`http://localhost:1210`);
+  win.webContents.loadURL(`http://localhost:${store.get(`config.port`)}`);
 
   win.on('closed', function() {
+    store.set('config.port', PORT);
     win = null;
   });
-
-  //------------------------------------
-  // About Panelの内容をカスタマイズする
-  //------------------------------------
-  const aboutPanel = function(){
-    electron.dialog.showMessageBox({
-      title: `Xascotについて`,
-      message: `Xascot ${version}`,
-      detail: `Created by mf7cli\nCopyright (C) 2022 mf7cli.`,
-      buttons: [],
-      icon: 'icon.png'
-    });
-  }
 }
 
 electron.app.on('window-all-closed', function() {
