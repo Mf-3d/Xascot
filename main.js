@@ -1,7 +1,6 @@
 const { app } = require("electron");
 const electron = require("electron");
 const Store = require('electron-store');
-const electron_dl = require('electron-dl');
 
 const store = new Store({
   name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
