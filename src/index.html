@@ -29,15 +29,13 @@
         <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/effects/OutlineEffect.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/CCDIKSolver.js"></script>
         <script src="https://cdn.jsdelivr.net/gh/mrdoob/three.js@r106/examples/js/animation/MMDPhysics.js"></script>
-    
         <div id="three_canvas"></div>
         <footer>
             Toolbar<br>
             <button onclick="modelVisiblityOff();" id="visible_btn">MMDモデル非表示</button>
             <br>
             <input type="button" value="pose1" id="loop" onclick="PoseClickEvent(this.value)">
-            <input type="button" value="pose2" onclick="PoseClickEvent(this.value)" disabled>
-            <input type="button" value="pose3" onclick="PoseClickEvent(this.value)" disabled>
+            <input type="button" value="設定" id="setting_btn">
             <br>
             <input type="text" id="chattext" />
             <input type="button" id="speechbtn" value="送信" />
@@ -45,6 +43,8 @@
         <script src="./chat.js"></script>
         <script src="./js/main.js"></script>
         <script>
+            const settingBtn = document.querySelector('#setting_btn');
+
             function modelVisiblityOff() {
                 if(document.getElementById("three_canvas").style.visibility !== "hidden"){
                     document.getElementById("three_canvas").style.visibility = "hidden";
@@ -55,6 +55,10 @@
                     document.getElementById("visible_btn").innerHTML = "MMDモデル非表示"
                 }
             }
+            
+            settingBtn.addEventListener('click', function() {
+                window.apis.setting();
+            });
         </script>
     </body>
 </html>

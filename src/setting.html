@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body {
+                bottom: 0; /*下に固定*/
+                background-color: rgb(44, 44, 44);
+                text-align: center;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Setting</h1>
+        <hr>
+        ポート : <input type="text" id="port_id"/>
+        <br>
+        モデル : <input type="text" id="model_path"/>
+        <input type="button" id="save_btn" value="保存する"/>
+        <script>
+            const saveBtn = document.getElementById("save_btn");
+            saveBtn.addEventListener('click', function() {
+                window.apis.setting_e([document.getElementById("port_id").value,document.getElementById("model_path").value]);
+            });
+        </script>
+    </body>
+</html>

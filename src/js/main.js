@@ -1,3 +1,11 @@
+var Pmx = '';
+
+async function setPmx (func) {
+  Pmx = await window.apis.get_model();
+  console.log(Pmx);
+  func();
+}
+
 let scene, renderer, camera, mesh, helper;
 
 let ready = false;
@@ -9,19 +17,21 @@ const windowHeight = window.innerHeight;
 //Obujet Clock
 const clock = new THREE.Clock();
 
-const Pmx = "./pmx/Bluesky/Bluesky_1.0.2.pmx";
+
 const MotionObjects = [
   { id: "loop", VmdClip: null, AudioClip: false },
-  { id: "kei_voice_009_1", VmdClip: null, AudioClip: true },
-  { id: "kei_voice_010_2", VmdClip: null, AudioClip: true },
+  // { id: "kei_voice_009_1", VmdClip: null, AudioClip: true },
+  // { id: "kei_voice_010_2", VmdClip: null, AudioClip: true },
 ];
 
 window.onload = () => {
-  Init();
+  Pmx = setPmx(function (){
+    Init();
 
-  LoadModeler();
-
-  Render();
+    LoadModeler();
+  
+    Render();
+  });
 }
 
 /*
@@ -265,13 +275,13 @@ PoseClickEvent = (id) => {
       VmdControl("loop", true);
       break;
 
-    case "pose2":
-      VmdControl("kei_voice_009_1", false);
-      break;
+    // case "pose2":
+    //   VmdControl("kei_voice_009_1", false);
+    //   break;
 
-    case "pose3":
-      VmdControl("kei_voice_010_2", false);
-      break;
+    // case "pose3":
+    //   VmdControl("kei_voice_010_2", false);
+    //   break;
 
     default:
       VmdControl("loop", true);
