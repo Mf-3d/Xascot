@@ -4,6 +4,7 @@ const Store = require('electron-store');
 const fs = require('fs');
 const fse = require('fs-extra');
 const path = require('path');
+
 const store = new Store({
   name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
 });
@@ -43,13 +44,14 @@ function nw(){
   win.on('closed', function() {
     store.set('config.port', PORT);
     fs.rmSync('./src/pmx/cache/',{ recursive: true, force: true });
-    console.log('正常に削除が完了しました');
+    console.log('正常に削除が完了しました'); // 完了してるか分からんやろカス
     win = null;
   });
+
   fs.mkdir('./src/pmx/cache', { recursive: true }, (err) => {
-    if (err) throw err;
+    if (err) console.error(err)
   });
-  fse.copySync(store.get(`config.model_folder`) + '/', './src/pmx/cache/');
+  fse.copySync(store.get(`config.model_folder`), './src/pmx/cache/');
 };
 
 
@@ -100,12 +102,12 @@ electron.ipcMain.handle('setting_e', (event, data) => {
   }
   if(data[1] !== ''){
     if(data[1] == 'default'){
-      store.set(`config.model_name`, `src/pmx/Bluesky/Bluesky_1.0.2.pmx`);
-      store.set(`config.model_folder`, `src/pmx/Bluesky/`)
+      store.set(`config.model_name`, `./src/pmx/Bluesky/Bluesky_1.0.2.pmx`);
+      store.set(`config.model_folder`, `./src/pmx/Bluesky/`);
     }
     else{
       store.set(`config.model_name`, data[1]);
-      store.set(`config.model_folder`, path.dirname(data[1]));
+      store.set(`config.model_folder`, path.dirname(data[1]) + '/');
     }
   }
 });

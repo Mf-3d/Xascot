@@ -15,27 +15,34 @@
   "dependencies": {
     "electron-store": "^8.0.1",
     "express": "^4.17.2",
+    "fs": "^0.0.1-security",
     "fs-extra": "^10.0.0",
+    "nedb": "^1.8.0",
     "node-static": "^0.7.11",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "electron": "^16.0.7",
-    "electron-builder": "^22.14.5"
+    "electron-builder": "^22.14.5",
+    "electron-store": "^8.0.1"
   },
   "build": {
     "appId": "ml.mf7cli.bluesky",
     "productName": "BlueSky Mascot",
-    "files": [
-      "src",
-      "package.json",
-      "package-lock.json",
-      "main.js"
-    ],
+    "asar": false,
     "mac": {
       "target": "dmg",
       "icon": "icon.png"
     },
+    "files": [
+      "src",
+      "main.js",
+      "package.json",
+      "package-lock.json",
+      "yarn.lock",
+      "icon.png",
+      "!src/pmx/cache"
+    ],
     "win": {
       "target": "nsis",
       "icon": "icon.png"
