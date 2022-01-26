@@ -15,12 +15,13 @@
   "dependencies": {
     "electron-store": "^8.0.1",
     "express": "^4.17.2",
-    "node-static": "^0.7.11"
+    "fs-extra": "^10.0.0",
+    "node-static": "^0.7.11",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "electron": "^16.0.7",
-    "electron-builder": "^22.14.5",
-    "electron-dl": "^3.3.0"
+    "electron-builder": "^22.14.5"
   },
   "build": {
     "appId": "ml.mf7cli.bluesky",
