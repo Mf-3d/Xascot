@@ -1,12 +1,12 @@
 const { app } = require("electron");
 const electron = require("electron");
 const Store = require('electron-store');
-const fs = require('fs');
-const fse = require('fs-extra');
+const fs = require('fs-extra');
 const path = require('path');
 
 const store = new Store({
-  name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
+  name: 'config',  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
+  path: app.getPath('userData')
 });
 
 var PORT = store.get('config.port') || 1210;
@@ -51,7 +51,7 @@ function nw(){
   fs.mkdir('./src/pmx/cache', { recursive: true }, (err) => {
     if (err) console.error(err)
   });
-  fse.copySync(store.get(`config.model_folder`), './src/pmx/cache/');
+  fs.copySync(store.get(`config.model_folder`), './src/pmx/cache/');
 };
 
 

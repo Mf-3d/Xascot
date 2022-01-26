@@ -41,7 +41,8 @@
       "package-lock.json",
       "yarn.lock",
       "icon.png",
-      "!src/pmx/cache"
+      "!src/pmx/cache",
+      "node_modules"
     ],
     "win": {
       "target": "nsis",
