@@ -14,6 +14,9 @@ var PORT = store.get('config.port') || 1210;
 var nodeStatic = require('node-static');
 var file = new nodeStatic.Server(__dirname + '/src');
 
+var model_folder = new URL(__dirname + '/src/pmx/Bluesky/');
+var model_cache = new URL('src/pmx/cache/')
+
 let win;
 let swin;
 var version = "0.0.1-alpha5";
@@ -43,15 +46,15 @@ function nw(){
 
   win.on('closed', function() {
     store.set('config.port', PORT);
-    fs.rmSync('./src/pmx/cache/',{ recursive: true, force: true });
+    fs.rmSync(model_cache,{ recursive: true, force: true });
     console.log('正常に削除が完了しました'); // 完了してるか分からんやろカス
     win = null;
   });
 
-  fs.mkdir('./src/pmx/cache', { recursive: true }, (err) => {
+  fs.mkdir(URL('./src/pmx/cache'), { recursive: true }, (err) => {
     if (err) console.error(err)
   });
-  fs.copySync(store.get(`config.model_folder`), './src/pmx/cache/');
+  fs.copySync(model_folder, model_cache);
 };
 
 
