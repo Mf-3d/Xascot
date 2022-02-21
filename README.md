@@ -14,3 +14,4 @@ Error: listen EADDRINUSE: address already in use :::1210
 localhost:1210が使われています。
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/mf-3d/xascot?style=plastic)
+![GitHub package.json version](https://img.shields.io/github/package-json/v/mf-3d/xascot)
