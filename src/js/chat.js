@@ -34,7 +34,7 @@ speakBtn.addEventListener('click', function() {
         // 発言を再生 (発言キューに発言を追加)
         speechSynthesis.speak(uttr)
     }
-    else if(text.value.match(_4655[0])){
+    else if(_4655.includes(text.value) === true){
         // 発言を作成
         const uttr = new SpeechSynthesisUtterance(/*text.value*/"あああああああああああああああ");
         // 発言を再生 (発言キューに発言を追加)

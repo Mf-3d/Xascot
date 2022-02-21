@@ -1,12 +1,9 @@
 const { app } = require("electron");
 const electron = require("electron");
 const Store = require('electron-store');
-const fs = require('fs-extra');
-const path = require('path');
 
 const store = new Store({
-  name: 'config',  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
-  path: app.getPath('userData')
+  name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
 });
 
 var PORT = store.get('config.port') || 1210;
@@ -14,12 +11,7 @@ var PORT = store.get('config.port') || 1210;
 var nodeStatic = require('node-static');
 var file = new nodeStatic.Server(__dirname + '/src');
 
-var model_folder = new URL(__dirname + '/src/pmx/Bluesky/');
-var model_cache = new URL('src/pmx/cache/')
-
-let win;
-let swin;
-var version = "0.0.1-alpha5";
+var version = "0.0.1-alpha4";
 
 const isMac = (process.platform === 'darwin');  // 'darwin' === macOS
 
@@ -39,22 +31,15 @@ function nw(){
     alwaysOnTop: true,
     icon: `${__dirname}/icon.png`,
     webPreferences: {
-      preload: `${__dirname}/src/preload.js`
+      preload: `${__dirname}/src/preload/preload.js`
     }
   })
   win.webContents.loadURL(`http://localhost:${store.get(`config.port`)}`);
 
   win.on('closed', function() {
     store.set('config.port', PORT);
-    fs.rmSync(model_cache,{ recursive: true, force: true });
-    console.log('正常に削除が完了しました'); // 完了してるか分からんやろカス
     win = null;
   });
-
-  fs.mkdir(URL('./src/pmx/cache'), { recursive: true }, (err) => {
-    if (err) console.error(err)
-  });
-  fs.copySync(model_folder, model_cache);
 };
 
 
@@ -66,7 +51,7 @@ function snw(){
     toolbar: false,
     // icon: `${__dirname}/icon.png`,
     webPreferences: {
-      preload: `${__dirname}/src/preload.js`
+      preload: `${__dirname}/src/preload/preload.js`
     }
   })
   swin.webContents.loadURL(`http://localhost:${store.get(`config.port`)}/setting.html`);
@@ -85,9 +70,9 @@ electron.app.on('window-all-closed', function() {
 electron.app.on('ready',nw);
 
 electron.ipcMain.handle('get_model', async (event, data) => {
-  var modelUrl = store.get('config.model_name',[]);
-  var model_name = String(modelUrl);
-  return './pmx/cache/'+ path.basename(model_name);
+  var modelUrl = store.get('config.model', './pmx/Bluesky/Bluesky_1.0.2.pmx');
+  model_path = String(modelUrl);
+  return model_path;
 })
 
 electron.ipcMain.handle('quitapp', (event, data) => {
@@ -105,12 +90,10 @@ electron.ipcMain.handle('setting_e', (event, data) => {
   }
   if(data[1] !== ''){
     if(data[1] == 'default'){
-      store.set(`config.model_name`, `./src/pmx/Bluesky/Bluesky_1.0.2.pmx`);
-      store.set(`config.model_folder`, `./src/pmx/Bluesky/`);
+      store.set(`config.model`, `./pmx/Bluesky/Bluesky_1.0.2.pmx`);
     }
     else{
-      store.set(`config.model_name`, data[1]);
-      store.set(`config.model_folder`, path.dirname(data[1]) + '/');
+      store.set(`config.model`, data[1]);
     }
   }
 });
