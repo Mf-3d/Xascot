@@ -29,7 +29,9 @@
       "node_modules",
       "package.json",
       "package-lock.json",
-      "main.js"
+      "main.js",
+      "tray.png",
+      "tray@2x.png"
     ],
     "mac": {
       "target": "dmg",
