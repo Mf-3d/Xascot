@@ -44,7 +44,7 @@ Init = () => {
     alpha: true
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth - 80, window.innerHeight - 160);
+  renderer.setSize(window.innerWidth - 60, window.innerHeight - 120);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // documentにMMDをセットする
@@ -98,7 +98,7 @@ Init = () => {
   scene.add( light.target );
   //cameraの作成
   camera = new THREE.PerspectiveCamera(40, windowWidth / windowHeight, 1, 1000);
-  camera.position.set(-2.5, 15, 30);
+  camera.position.set(-1, 15, 30);
 }
 
 /*

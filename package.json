@@ -26,6 +26,7 @@
     "productName": "Xascot",
     "files": [
       "src",
+      "node_modules",
       "package.json",
       "package-lock.json",
       "main.js"

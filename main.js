@@ -11,7 +11,7 @@ var PORT = store.get('config.port') || 1210;
 var nodeStatic = require('node-static');
 var file = new nodeStatic.Server(__dirname + '/src');
 
-var version = "0.0.1-alpha4";
+var version = "1.0.0-beta2";
 
 const isMac = (process.platform === 'darwin');  // 'darwin' === macOS
 
@@ -23,6 +23,8 @@ require('http').createServer(function (request, response) {
 
 function nw(){
   win=new electron.BrowserWindow({
+    resizable: false,
+    hasShadow:  false,
     width: 200,
     height: 400,
     transparent: true,
