@@ -12,6 +12,7 @@ var nodeStatic = require('node-static');
 var file = new nodeStatic.Server(__dirname + '/src');
 
 var version = "1.0.0-beta2";
+let tray = null;
 
 const isMac = (process.platform === 'darwin');  // 'darwin' === macOS
 
@@ -20,6 +21,27 @@ require('http').createServer(function (request, response) {
         file.serve(request, response);
     }).resume();
 }).listen(PORT);//ポートは空いていそうなところで。
+
+const createTrayIcon = () => {
+  let imgFilePath;
+  if (process.platform === 'win32') { // Windows
+    imgFilePath = __dirname + '/tray.png';
+  }
+  else{ // macOS
+    imgFilePath = __dirname + '/tray.png';
+    // 一応、macOS のダークモードに対応しておく
+    // if ( nativeTheme.shouldUseDarkColors === true ){
+    //   isDarkTheme = true;
+    //   imgFilePath = __dirname + '/images/tray-icon/white/100.png';
+    // }
+  }
+  const contextMenu = electron.Menu.buildFromTemplate([
+    { label: '終了', role: 'quit' }
+  ]);
+  tray = new electron.Tray(imgFilePath);
+  tray.setToolTip(app.name);
+  tray.setContextMenu(contextMenu);
+}
 
 function nw(){
   win=new electron.BrowserWindow({
@@ -32,6 +54,7 @@ function nw(){
     toolbar: false,
     alwaysOnTop: true,
     icon: `${__dirname}/icon.png`,
+    skipTaskbar: true,
     webPreferences: {
       preload: `${__dirname}/src/preload/preload.js`
     }
@@ -42,6 +65,8 @@ function nw(){
     store.set('config.port', PORT);
     win = null;
   });
+
+  createTrayIcon();
 };
 
 
