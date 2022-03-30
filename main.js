@@ -16,6 +16,11 @@ let tray = null;
 
 const isMac = (process.platform === 'darwin');  // 'darwin' === macOS
 
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+}
+
 require('http').createServer(function (request, response) {
     request.addListener('end', function () {
         file.serve(request, response);
@@ -36,6 +41,11 @@ const createTrayIcon = () => {
     // }
   }
   const contextMenu = electron.Menu.buildFromTemplate([
+    {role:'about', label:`Xascotについて` },
+    { label: '設定', click: () => {
+      snw();
+    } },
+    {type:'separator'},
     { label: '終了', role: 'quit' }
   ]);
   tray = new electron.Tray(imgFilePath);
@@ -54,7 +64,6 @@ function nw(){
     toolbar: false,
     alwaysOnTop: true,
     icon: `${__dirname}/icon.png`,
-    skipTaskbar: true,
     webPreferences: {
       preload: `${__dirname}/src/preload/preload.js`
     }
@@ -67,6 +76,13 @@ function nw(){
   });
 
   createTrayIcon();
+
+  win.on("focus", () => {
+    win.setSkipTaskbar(true);
+  });
+  win.on("blur", () => {
+    win.setSkipTaskbar(true);
+  });
 };
 
 
