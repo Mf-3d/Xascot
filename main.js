@@ -1,17 +1,17 @@
 const { app } = require("electron");
 const electron = require("electron");
 const Store = require('electron-store');
+const express = require('express');
+
+const _app = express();
 
 const store = new Store({
   name: 'config'  // 設定ファイル名を指定　※省略可。拡張子は.jsonになる
 });
 
-var PORT = store.get('config.port') || 1210;
+var PORT = store.get('config.port',1210);
 
-var nodeStatic = require('node-static');
-var file = new nodeStatic.Server(__dirname + '/src');
-
-var version = "1.0.0-beta2";
+var version = "1.0.0-beta3";
 let tray = null;
 
 const isMac = (process.platform === 'darwin');  // 'darwin' === macOS
@@ -21,11 +21,12 @@ if (!gotTheLock) {
   app.quit();
 }
 
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        file.serve(request, response);
-    }).resume();
-}).listen(PORT);//ポートは空いていそうなところで。
+// node-staticの代わり
+var server = _app.listen(PORT, function(){
+  console.log("Node.js is listening to PORT:" + server.address().port);
+});
+
+_app.use(express.static('src'));
 
 const createTrayIcon = () => {
   let imgFilePath;
@@ -128,7 +129,7 @@ electron.ipcMain.handle('setting', (event, data) => {
 
 electron.ipcMain.handle('setting_e', (event, data) => {
   if(data[0] !== ''){
-    port_int = Number(data[0])
+    var port_int = Number(data[0])
     store.set(`config.port`, port_int);
   }
   if(data[1] !== ''){
